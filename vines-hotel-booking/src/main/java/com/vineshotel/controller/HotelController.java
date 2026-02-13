@@ -43,8 +43,10 @@ public class HotelController {
 		
 		//Submit booking
 		@PostMapping("/submitBooking")
-		public String submitBooking(@ModelAttribute Booking booking) {
-			bookingRepo.save(booking);
+		public String submitBooking(@ModelAttribute Booking booking, Model model) {
+			Booking savedBooking = bookingRepo.save(booking);
+			// send booking details to success page
+			model.addAttribute("booking", savedBooking);
 			return "booking-success";
 		}
 		
@@ -87,4 +89,5 @@ public class HotelController {
 			roomRepo.save(room);
 			return "redirect:/admin/addRoom";
 		}
+
 }

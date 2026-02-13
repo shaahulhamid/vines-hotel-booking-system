@@ -1,14 +1,101 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Booking Submitted</title>
+    <title>Booking Confirmed | The Vines Hotel</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 </head>
-<body>
 
-<h1>✅ Booking Request Submitted Successfully!</h1>
-<p>Thank you for choosing The Vines Hotel.</p>
+<body class="bg-light">
 
-<a th:href="@{/}">Back to Home</a>
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" th:href="@{/}">
+            🌿 The Vines Hotel
+        </a>
+    </div>
+</nav>
+
+<!-- Confirmation Box -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+
+        <div class="col-md-7">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-body p-4 text-center">
+
+                    <h2 class="fw-bold text-success">
+                        ✅ Booking Request Submitted!
+                    </h2>
+
+                    <p class="text-muted mt-2">
+                        Thank you for choosing The Vines Hotel.
+                        Our team will contact you soon.
+                    </p>
+
+                    <hr>
+
+                    <!-- Booking Details -->
+                    <h4 class="fw-bold mt-3">📌 Booking Details</h4>
+
+                    <p>
+                        <strong>Booking ID:</strong>
+                        <span th:text="${booking.id}"></span>
+                    </p>
+
+                    <p>
+                        <strong>Name:</strong>
+                        <span th:text="${booking.fullName}"></span>
+                    </p>
+
+                    <p>
+                        <strong>Room Type:</strong>
+                        <span th:text="${booking.roomType}"></span>
+                    </p>
+
+                    <p>
+                        <strong>Check-in:</strong>
+                        <span th:text="${booking.checkInDate}"></span>
+                        <br>
+                        <strong>Check-out:</strong>
+                        <span th:text="${booking.checkOutDate}"></span>
+                    </p>
+
+                    <p>
+                        <strong>Guests:</strong>
+                        Adults: <span th:text="${booking.adults}"></span>,
+                        Children: <span th:text="${booking.children}"></span>
+                    </p>
+
+                    <p th:if="${booking.specialRequests != null && booking.specialRequests != ''}">
+                        <strong>Special Requests:</strong>
+                        <span th:text="${booking.specialRequests}"></span>
+                    </p>
+
+                    <hr>
+
+                    <!-- Buttons -->
+                    <a class="btn btn-dark mt-3" th:href="@{/}">
+                        Back to Home
+                    </a>
+
+                    <a class="btn btn-outline-success mt-3 ms-2" th:href="@{/rooms}">
+                        Explore More Rooms
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center mt-5 p-4 bg-dark text-white">
+    © 2026 The Vines Hotel | Booking Confirmation
+</footer>
 
 </body>
 </html>
