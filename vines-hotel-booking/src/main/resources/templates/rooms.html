@@ -1,29 +1,137 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Rooms | The Vines Hotel</title>
+    <meta charset="ISO-8859-1">
+
+    <title>Rooms | The Vines Hotel</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 </head>
-<body>
-	<h1>Our Rooms</h1>
-	<p>Explore luxury stays designed for your comfort.</p>
-	
-	<div>
-		<h2>Standard Rooms</h2>
-		<p>Queen-size bed | A/C room | Standard - amenities | 3 person max</p>
-	</div>
-	
-	<div>
-		<h2>Premium Rooms</h2>
-		<p>King-size bed | A/C room | Premium - amenities| Balcony view | 2 person max</p>
-	</div>
-	
-	<div>
-		<h2>Executive Rooms</h2>
-		<p>2 Queen-size beds | A/C room | Standard - amenities| 6 person max</p>
-	</div>
-	
-	<hr>
-	<a th:href="@{/}">Back to home</a>
+
+<body class="bg-light">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" th:href="@{/}">
+            🌿 The Vines Hotel
+        </a>
+
+        <div>
+            <a class="nav-link text-white d-inline fw-semibold"
+               th:href="@{/rooms}">
+                Rooms
+            </a>
+
+            <!-- Contact page later -->
+            <a class="nav-link text-white d-inline ms-3 fw-semibold"
+               th:href="@{/contact}">
+                Contact
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Header Section -->
+<div class="container text-center mt-5">
+    <h1 class="fw-bold">🏨 Our Rooms</h1>
+    <p class="text-muted">
+        Explore luxury stays designed for your comfort and relaxation.
+    </p>
+</div>
+
+<!-- Rooms Cards Section -->
+<div class="container mt-4">
+    <div class="row g-4">
+
+        <!-- Standard Room -->
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-4 h-100">
+                <div class="card-body">
+                    <h4 class="card-title fw-bold">Standard Room</h4>
+
+                    <p class="text-muted">
+                        Queen-size bed • A/C room • Standard amenities
+                    </p>
+
+                    <p>
+                        👥 Max: 3 Persons
+                    </p>
+
+                    <h5 class="text-success fw-bold">₹2,500 / night</h5>
+
+                    <a class="btn btn-dark w-100 mt-3"
+                       th:href="@{/book}">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Room -->
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-4 h-100">
+                <div class="card-body">
+                    <h4 class="card-title fw-bold">Premium Room</h4>
+
+                    <p class="text-muted">
+                        King-size bed • Balcony view • Premium amenities
+                    </p>
+
+                    <p>
+                        👥 Max: 2 Persons
+                    </p>
+
+                    <h5 class="text-success fw-bold">₹4,000 / night</h5>
+
+                    <a class="btn btn-dark w-100 mt-3"
+                       th:href="@{/book}">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive Room -->
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-4 h-100">
+                <div class="card-body">
+                    <h4 class="card-title fw-bold">Executive Room</h4>
+
+                    <p class="text-muted">
+                        2 Queen-size beds • Spacious • Luxury comfort
+                    </p>
+
+                    <p>
+                        👥 Max: 6 Persons
+                    </p>
+
+                    <h5 class="text-success fw-bold">₹6,000 / night</h5>
+
+                    <a class="btn btn-dark w-100 mt-3"
+                       th:href="@{/book}">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Back Button -->
+<div class="container text-center mt-5">
+    <a class="btn btn-outline-dark" th:href="@{/}">
+        ⬅ Back to Home
+    </a>
+</div>
+
+<!-- Footer -->
+<footer class="text-center mt-5 p-4 bg-dark text-white">
+    © 2026 The Vines Hotel | Luxury Stay Experience
+</footer>
+
 </body>
 </html>
