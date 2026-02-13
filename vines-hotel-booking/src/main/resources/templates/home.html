@@ -45,16 +45,58 @@
             margin-top: 15px;
             color: #f1f1f1;
         }
+        /* Premium Logo Box */
+.logo-box {
+    width: 55px;
+    height: 55px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Luxury Shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Logo Image */
+.hotel-logo-img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+/* Hotel Name Styling */
+.hotel-name-text {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
     </style>
 </head>
 
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg py-3">
     <div class="container">
-        <img th:src="@{/images/logo.png}" width="50">
-            🌿 The Vines Hotel
+
+        <!-- Brand Logo + Name -->
+        <a class="navbar-brand d-flex align-items-center fw-bold" th:href="@{/}">
+
+            <div class="logo-box me-2">
+                <img th:src="@{/images/logo.png}"
+                     alt="The Vines Hotel Logo"
+                     class="hotel-logo-img">
+            </div>
+
+            <span class="hotel-name-text">
+                The Vines Hotel
+            </span>
+        </a>
+
+        <!-- Menu Links -->
         <div>
             <a class="nav-link text-white d-inline fw-semibold"
                th:href="@{/rooms}">
@@ -71,8 +113,10 @@
                 Admin
             </a>
         </div>
+
     </div>
 </nav>
+
 
 <!-- Hero Section -->
 <section class="hero-section">
