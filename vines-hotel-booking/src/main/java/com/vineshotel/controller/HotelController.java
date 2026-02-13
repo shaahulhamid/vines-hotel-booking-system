@@ -16,4 +16,10 @@ public class HotelController {
 		public String roomsPage() {
 			return "rooms";
 		}
+		
+		//Booking
+		@GetMapping("/book")
+		public String bookingPage() {
+			return "book";
+		}
 }
