@@ -46,6 +46,17 @@ public class Booking {
 	public LocalDate getCheckInDate() {
 		return checkInDate;
 	}
+	
+	@Column(name="status")
+	private String status = "PENDING";
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public void setCheckInDate(LocalDate checkInDate) {
 		this.checkInDate = checkInDate;
