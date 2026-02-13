@@ -12,6 +12,7 @@ import com.vineshotel.entity.Booking;
 import com.vineshotel.entity.Room;
 import com.vineshotel.repository.BookingRepository;
 import com.vineshotel.repository.RoomRepository;
+import com.vineshotel.service.EmailService;
 
 @Controller
 public class HotelController {
@@ -21,6 +22,9 @@ public class HotelController {
 		
 		@Autowired
 		private RoomRepository roomRepo;
+		
+		@Autowired 
+		private EmailService emailService;
 	
 		@GetMapping("/")
 		public String homePage() {
@@ -45,8 +49,13 @@ public class HotelController {
 		@PostMapping("/submitBooking")
 		public String submitBooking(@ModelAttribute Booking booking, Model model) {
 			Booking savedBooking = bookingRepo.save(booking);
+			
+			// send confirmation
+			emailService.sendBookingConfirmation(savedBooking);
+			
 			// send booking details to success page
 			model.addAttribute("booking", savedBooking);
+			
 			return "booking-success";
 		}
 		
