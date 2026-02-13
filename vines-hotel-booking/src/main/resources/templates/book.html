@@ -59,12 +59,15 @@
                         <!-- Room Type -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Select Room Type</label>
-                            <select class="form-select" name="roomType" required>
-                                <option value="">-- Choose Room --</option>
-                                <option value="Standard Room">Standard Room</option>
-                                <option value="Premium Room">Premium Room</option>
-                                <option value="Executive Room">Executive Room</option>
-                            </select>
+                           <select class="form-select" name="roomType" required>
+    <option value="">-- Choose Room --</option>
+
+    <!-- Dynamic Room Options from Database -->
+    <option th:each="room : ${rooms}"
+            th:value="${room.roomName}"
+            th:text="${room.roomName}">
+    </option>
+</select>
                         </div>
 
                         <!-- Adults + Children -->
