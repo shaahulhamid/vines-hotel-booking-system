@@ -1,6 +1,7 @@
 package com.vineshotel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import com.vineshotel.entity.Room;
 import com.vineshotel.repository.BookingRepository;
 import com.vineshotel.repository.RoomRepository;
 import com.vineshotel.service.EmailService;
+import com.vineshotel.service.PdfService;
 
 @Controller
 public class HotelController {
@@ -25,6 +27,9 @@ public class HotelController {
 		
 		@Autowired 
 		private EmailService emailService;
+		
+		@Autowired
+		private PdfService pdfService;
 	
 		@GetMapping("/")
 		public String homePage() {
@@ -98,5 +103,18 @@ public class HotelController {
 			roomRepo.save(room);
 			return "redirect:/admin/addRoom";
 		}
+		
+		//Download PDF 
+		@GetMapping("/booking/pdf/{id}")
+		public ResponseEntity<byte[]> downloadReceipt(@PathVariable Long id){
+			Booking booking = bookingRepo.findById(id).orElseThrow();
+			
+			byte[] pdfBytes = pdfService.generateBookingReceipt(booking);
+			
+			return ResponseEntity.ok()
+					.header("Content-Disposition", "attachment; filename=booking-receipt-"+id+".pdf")
+					.body(pdfBytes);
+		}
+		
 
 }

@@ -73,6 +73,11 @@
                         <strong>Special Requests:</strong>
                         <span th:text="${booking.specialRequests}"></span>
                     </p>
+                    
+                    <a class="btn btn-outline-primary mt-3"
+   th:href="@{/booking/pdf/{id}(id=${booking.id})}">
+    📄 Download Booking Receipt (PDF)
+</a>
 
                     <hr>
 
