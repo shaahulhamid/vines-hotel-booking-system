@@ -16,6 +16,8 @@ import com.vineshotel.repository.RoomRepository;
 import com.vineshotel.service.EmailService;
 import com.vineshotel.service.PdfService;
 
+import jakarta.mail.MessagingException;
+
 @Controller
 public class HotelController {
 	
@@ -55,8 +57,15 @@ public class HotelController {
 		public String submitBooking(@ModelAttribute Booking booking, Model model) {
 			Booking savedBooking = bookingRepo.save(booking);
 			
+			// Generate PDF receipt
+			byte[] pdfBytes = pdfService.generateBookingReceipt(savedBooking);
+			
 			// send confirmation
-			emailService.sendBookingConfirmation(savedBooking);
+			try {
+				emailService.sendBookingConfirmation(savedBooking, pdfBytes);
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
 			
 			// send booking details to success page
 			model.addAttribute("booking", savedBooking);
