@@ -10,4 +10,10 @@ public class HotelController {
 		public String homePage() {
 			return "home";
 		}
+		
+		//Rooms page
+		@GetMapping("/rooms")
+		public String roomsPage() {
+			return "rooms";
+		}
 }
