@@ -38,6 +38,12 @@ public class HotelController {
 			return "home";
 		}
 		
+		//login
+		@GetMapping("/login")
+		public String loginPage() {
+			return "/login";
+		}
+		
 		//Rooms page
 		@GetMapping("/rooms")
 		public String roomsPage(Model model) {

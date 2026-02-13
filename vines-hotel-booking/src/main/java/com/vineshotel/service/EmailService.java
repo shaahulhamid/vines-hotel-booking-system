@@ -41,7 +41,7 @@ public class EmailService {
 		//Attach PDF
 		helper.addAttachment(
 				"booking-receipt-"+booking.getId()+".pdf",
-				new ByteArrayResource(pdfBytes);
+				new ByteArrayResource(pdfBytes)
 				);
 		
 		mailSender.send(message);
