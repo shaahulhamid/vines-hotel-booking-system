@@ -48,6 +48,8 @@
                         <th>Check-In</th>
                         <th>Check-Out</th>
                         <th>Requests</th>
+                        <th>Status</th>
+						<th>Action</th>
                     </tr>
                 </thead>
 
@@ -63,6 +65,37 @@
                         <td th:text="${booking.checkInDate}"></td>
                         <td th:text="${booking.checkOutDate}"></td>
                         <td th:text="${booking.specialRequests}"></td>
+                  		<td th:text="${booking.specialRequests}"></td>
+<!-- Status -->
+<td>
+    <span class="badge bg-warning text-dark"
+        		  th:if="${booking.status == 'PENDING'}">
+      	Pending
+   </span>
+
+    					<span class="badge bg-success"
+          							th:if="${booking.status == 'APPROVED'}">
+       								 Approved
+    					</span>
+
+    					<span class="badge bg-danger"
+         							 th:if="${booking.status == 'REJECTED'}">
+        							Rejected
+    					</span>
+</td>
+
+<!-- Actions -->
+<td>
+    <a class="btn btn-sm btn-success"
+       th:href="@{/admin/approve/{id}(id=${booking.id})}">
+        Approve
+    </a>
+
+    <a class="btn btn-sm btn-danger ms-2"
+       th:href="@{/admin/reject/{id}(id=${booking.id})}">
+        Reject
+    </a>
+</td>
                     </tr>
                 </tbody>
             </table>

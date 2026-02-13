@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.vineshotel.entity.Booking;
@@ -45,5 +46,25 @@ public class HotelController {
 		public String viewBookings(Model model) {
 			model.addAttribute("bookings", bookingRepo.findAll());
 			return "admin-bookings";
+		}
+		
+		// Approve
+		@GetMapping("/admin/approve/{id}")
+		public String approveBooking(@PathVariable Long id) {
+			Booking booking = bookingRepo.findById(id).orElseThrow();
+			booking.setStatus("APPROVED");
+			bookingRepo.save(booking);
+			
+			return "redirect:/admin/bookings";
+		}
+		
+		//Reject
+		@GetMapping("/admin/reject/{id}")
+		public String rejectBooking(@PathVariable Long id) {
+			Booking booking = bookingRepo.findById(id).orElseThrow();
+			booking.setStatus("REJECTED");
+			bookingRepo.save(booking);
+			
+			return "redirect:/admin/bookings";
 		}
 }
