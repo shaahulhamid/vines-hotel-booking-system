@@ -13,22 +13,24 @@
 <body class="bg-light">
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg py-3">
     <div class="container">
+
+        <!-- Brand -->
         <a class="navbar-brand fw-bold" th:href="@{/}">
             🌿 The Vines Hotel
         </a>
 
+        <!-- Links -->
         <div>
             <a class="nav-link text-white d-inline fw-semibold"
                th:href="@{/rooms}">
                 Rooms
             </a>
 
-            <!-- Contact page later -->
             <a class="nav-link text-white d-inline ms-3 fw-semibold"
-               th:href="@{/contact}">
-                Contact
+               th:href="@{/book}">
+                Book Now
             </a>
         </div>
     </div>
@@ -44,81 +46,61 @@
 
 <!-- Rooms Cards Section -->
 <div class="container mt-4">
+
     <div class="row g-4">
 
-        <!-- Standard Room -->
-        <div class="col-md-4">
+        <!-- ✅ Dynamic Room Cards -->
+        <div class="col-md-4" th:each="room : ${rooms}">
             <div class="card shadow-sm rounded-4 h-100">
                 <div class="card-body">
-                    <h4 class="card-title fw-bold">Standard Room</h4>
 
-                    <p class="text-muted">
-                        Queen-size bed • A/C room • Standard amenities
+                    <!-- Room Name -->
+                    <h4 class="card-title fw-bold"
+                        th:text="${room.roomName}">
+                        Room Name
+                    </h4>
+
+                    <!-- Room Description -->
+                    <p class="text-muted"
+                       th:text="${room.description}">
+                        Room Description
                     </p>
 
+                    <!-- Capacity -->
                     <p>
-                        👥 Max: 3 Persons
+                        👤 Adults: <span th:text="${room.maxAdults}"></span><br>
+                        👶 Children: <span th:text="${room.maxChildren}"></span>
                     </p>
 
-                    <h5 class="text-success fw-bold">₹1,500 / night</h5>
+                    <!-- Price -->
+                    <h5 class="text-success fw-bold">
+                        ₹<span th:text="${room.pricePerNight}"></span> / night
+                    </h5>
 
+                    <!-- Book Button -->
                     <a class="btn btn-dark w-100 mt-3"
                        th:href="@{/book}">
                         Book Now
                     </a>
-                </div>
-            </div>
-        </div>
 
-        <!-- Premium Room -->
-        <div class="col-md-4">
-            <div class="card shadow-sm rounded-4 h-100">
-                <div class="card-body">
-                    <h4 class="card-title fw-bold">Premium Room</h4>
-
-                    <p class="text-muted">
-                        King-size bed • Balcony view • Premium amenities
-                    </p>
-
-                    <p>
-                        👥 Max: 2 Persons
-                    </p>
-
-                    <h5 class="text-success fw-bold">₹2,250 / night</h5>
-
-                    <a class="btn btn-dark w-100 mt-3"
-                       th:href="@{/book}">
-                        Book Now
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Executive Room -->
-        <div class="col-md-4">
-            <div class="card shadow-sm rounded-4 h-100">
-                <div class="card-body">
-                    <h4 class="card-title fw-bold">Executive Room</h4>
-
-                    <p class="text-muted">
-                        2 Queen-size beds • Spacious • Luxury comfort
-                    </p>
-
-                    <p>
-                        👥 Max: 6 Persons
-                    </p>
-
-                    <h5 class="text-success fw-bold">₹3,000 / night</h5>
-
-                    <a class="btn btn-dark w-100 mt-3"
-                       th:href="@{/book}">
-                        Book Now
-                    </a>
                 </div>
             </div>
         </div>
 
     </div>
+
+    <!-- ✅ If No Rooms Available -->
+    <div th:if="${#lists.isEmpty(rooms)}"
+         class="text-center mt-5 text-muted">
+        <h4>No rooms available yet.</h4>
+        <p>Admin can add rooms from the dashboard.</p>
+
+        <a class="btn btn-dark mt-3"
+           th:href="@{/admin/addRoom}">
+            Add Rooms Now
+        </a>
+    </div>
+
 </div>
 
 <!-- Back Button -->

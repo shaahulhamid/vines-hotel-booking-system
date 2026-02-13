@@ -29,7 +29,8 @@ public class HotelController {
 		
 		//Rooms page
 		@GetMapping("/rooms")
-		public String roomsPage() {
+		public String roomsPage(Model model) {
+			model.addAttribute("rooms", roomRepo.findAll());
 			return "rooms";
 		}
 		
