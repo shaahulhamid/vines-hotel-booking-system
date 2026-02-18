@@ -8,12 +8,14 @@
 
     <style>
         body {
-            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    position: relative;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
         .login-card {
             width: 420px;
@@ -32,6 +34,11 @@
 </head>
 
 <body>
+	<!-- ✅ Home Button (Top Left) -->
+<a th:href="@{/}"
+   class="btn btn-outline-light position-absolute top-0 start-0 m-4 fw-semibold">
+    ← Home
+</a>
 
 <div class="card login-card p-4 text-center bg-light">
 

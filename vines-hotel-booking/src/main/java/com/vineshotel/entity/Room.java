@@ -1,83 +1,48 @@
 package com.vineshotel.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="rooms")
+@Table(name = "rooms")
 public class Room {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name="room_name")
-	private String roomName;
-	
-	@Column(name="description", length=500)
-	private String description;
-	
-	@Column(name="price_per_night")
-	private Double pricePerNight;
-	
-	@Column(name="max_adults")
-	private Integer maxAdults;
-	
-	@Column(name="max_children")
-	private Integer maxChildren;
-	
-	public Room() {}
 
-	public Long getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private String title;        // Premium Room
+    private String description;  // King size bed, Balcony view
+    private double pricePerNight;
 
-	public String getRoomName() {
-		return roomName;
-	}
+    private int adults;
+    private int children;
 
-	public void setRoomName(String roomName) {
-		this.roomName = roomName;
-	}
+    // Constructors
+    public Room() {}
 
-	public String getDescription() {
-		return description;
-	}
+    public Room(String title, String description, double pricePerNight, int adults, int children) {
+        this.title = title;
+        this.description = description;
+        this.pricePerNight = pricePerNight;
+        this.adults = adults;
+        this.children = children;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    // Getters & Setters
+    public Long getId() { return id; }
 
-	public Double getPricePerNight() {
-		return pricePerNight;
-	}
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-	public void setPricePerNight(Double pricePerNight) {
-		this.pricePerNight = pricePerNight;
-	}
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-	public Integer getMaxAdults() {
-		return maxAdults;
-	}
+    public double getPricePerNight() { return pricePerNight; }
+    public void setPricePerNight(double pricePerNight) { this.pricePerNight = pricePerNight; }
 
-	public void setMaxAdults(Integer maxAdults) {
-		this.maxAdults = maxAdults;
-	}
+    public int getAdults() { return adults; }
+    public void setAdults(int adults) { this.adults = adults; }
 
-	public Integer getMaxChildren() {
-		return maxChildren;
-	}
-
-	public void setMaxChildren(Integer maxChildren) {
-		this.maxChildren = maxChildren;
-	}
-	
-	
+    public int getChildren() { return children; }
+    public void setChildren(int children) { this.children = children; }
 }

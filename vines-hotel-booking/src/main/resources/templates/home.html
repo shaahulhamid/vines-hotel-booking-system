@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="ISO-8859-1">
+<meta charset="UTF-8">
     <title>The Vines Hotel</title>
 
     <!-- Bootstrap CDN -->
@@ -11,13 +12,19 @@
     <style>
         /* Full Background Hero Section */
         .hero-section {
-            height: 100vh;
-            background: url("https://images.unsplash.com/photo-1501117716987-c8e1ecb210ff")
-                        no-repeat center center/cover;
-            position: relative;
-            color: white;
-        }
-
+    height: 100vh;
+    background: url("/images/lobby-bg.png")
+                no-repeat center center/cover;
+    position: relative;
+    color: white;
+}
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.55);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
         /* Dark Overlay */
         .hero-overlay {
             background: rgba(0, 0, 0, 0.6);
@@ -84,7 +91,6 @@
 
         <!-- Brand Logo + Name -->
         <a class="navbar-brand d-flex align-items-center fw-bold" th:href="@{/}">
-
             <div class="logo-box me-2">
                 <img th:src="@{/images/logo.png}"
                      alt="The Vines Hotel Logo"
@@ -96,26 +102,68 @@
             </span>
         </a>
 
-        <!-- Menu Links -->
-        <div>
-            <a class="nav-link text-white d-inline fw-semibold"
-               th:href="@{/rooms}">
-                Rooms
-            </a>
+        <!-- Right Side Links -->
+        <div class="d-flex align-items-center">
 
-            <a class="nav-link text-white d-inline ms-3 fw-semibold"
-               th:href="@{/book}">
-                Book Now
-            </a>
+           <!-- Customer Links -->
+<div sec:authorize="!hasRole('ADMIN')">
 
-            <a class="nav-link text-white d-inline ms-3 fw-semibold"
-               th:href="@{/admin/bookings}">
-                Admin
-            </a>
+    <a class="nav-link text-white fw-semibold"
+       th:href="@{/rooms}">
+        Rooms
+    </a>
+
+    <a class="nav-link text-white ms-3 fw-semibold"
+       th:href="@{/book}">
+        Book Now
+    </a>
+
+</div>
+
+
+<!-- Admin Links -->
+<div sec:authorize="hasRole('ADMIN')" class="d-flex">
+
+    <a class="nav-link text-white fw-semibold"
+       th:href="@{/admin/dashboard}">
+        Dashboard
+    </a>
+
+    <a class="nav-link text-white ms-3 fw-semibold"
+       th:href="@{/admin/rooms}">
+        Manage Rooms
+    </a>
+
+    <a class="nav-link text-white ms-3 fw-semibold"
+       th:href="@{/admin/bookings}">
+        Booking Requests
+    </a>
+
+</div>
+
+
+<!-- Logout -->
+<form sec:authorize="isAuthenticated()"
+      th:action="@{/logout}" method="post"
+      class="ms-4 mb-0">
+    <button type="submit" class="btn btn-outline-light">
+        Logout
+    </button>
+</form>
+
+<!-- Login -->
+<a sec:authorize="!isAuthenticated()"
+   class="btn btn-outline-light ms-3"
+   th:href="@{/login}">
+    Login
+</a>
+
+
         </div>
 
     </div>
 </nav>
+
 
 
 <!-- Hero Section -->
@@ -126,17 +174,36 @@
             <h1>Welcome to The Vines Hotel</h1>
             <p>Luxury Stay • Premium Comfort • Unforgettable Experience</p>
 
-            <div class="mt-4">
-                <a class="btn btn-lg btn-light fw-bold px-4 me-3"
-                   th:href="@{/rooms}">
-                    Explore Rooms
-                </a>
+            <!-- User Buttons -->
+<div sec:authorize="!hasRole('ADMIN')">
 
-                <a class="btn btn-lg btn-success fw-bold px-4"
-                   th:href="@{/book}">
-                    Book Your Stay
-                </a>
-            </div>
+    <a class="btn btn-lg btn-light fw-bold px-4 me-3"
+       th:href="@{/rooms}">
+        Explore Rooms
+    </a>
+
+    <a class="btn btn-lg btn-success fw-bold px-4"
+       th:href="@{/book}">
+        Book Your Stay
+    </a>
+
+</div>
+
+<!-- Admin Buttons -->
+<div sec:authorize="hasRole('ADMIN')">
+
+    <a class="btn btn-lg btn-warning fw-bold px-4 me-3"
+       th:href="@{/admin/dashboard}">
+        Admin Dashboard
+    </a>
+
+    <a class="btn btn-lg btn-danger fw-bold px-4"
+       th:href="@{/admin/rooms}">
+        Manage Rooms
+    </a>
+
+</div>
+
 
         </div>
     </div>
