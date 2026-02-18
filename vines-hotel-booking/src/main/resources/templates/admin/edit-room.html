@@ -38,74 +38,75 @@
         </h3>
 
         <!-- Edit Room Form -->
-        <form th:action="@{/admin/rooms/update}"
-              th:object="${room}"
-              method="post">
+       <form th:action="@{/admin/rooms/update/{id}(id=${room.id})}"
+      th:object="${room}"
+      method="post">
 
-            <!-- Hidden ID -->
-            <input type="hidden" th:field="*{id}">
+    <!-- Hidden ID -->
+    <input type="hidden" th:field="*{id}">
 
-            <!-- Room Name -->
-            <div class="mb-3">
-                <label class="form-label fw-semibold">
-                    Room Name
-                </label>
-                <input type="text"
-                       th:field="*{title}"
-                       class="form-control"
-                       required>
-            </div>
+    <!-- Room Name -->
+    <div class="mb-3">
+        <label class="form-label fw-semibold">
+            Room Name
+        </label>
+        <input type="text"
+               th:field="*{title}"
+               class="form-control"
+               required>
+    </div>
 
-            <!-- Description -->
-            <div class="mb-3">
-                <label class="form-label fw-semibold">
-                    Description
-                </label>
-                <textarea th:field="*{description}"
-                          class="form-control"
-                          rows="3"
-                          required></textarea>
-            </div>
+    <!-- Description -->
+    <div class="mb-3">
+        <label class="form-label fw-semibold">
+            Description
+        </label>
+        <textarea th:field="*{description}"
+                  class="form-control"
+                  rows="3"
+                  required></textarea>
+    </div>
 
-            <!-- Adults -->
-            <div class="mb-3">
-                <label class="form-label fw-semibold">
-                    Max Adults
-                </label>
-                <input type="number"
-                       th:field="*{adults}"
-                       class="form-control"
-                       required>
-            </div>
+    <!-- Adults -->
+    <div class="mb-3">
+        <label class="form-label fw-semibold">
+            Max Adults
+        </label>
+        <input type="number"
+               th:field="*{adults}"
+               class="form-control"
+               required>
+    </div>
 
-            <!-- Children -->
-            <div class="mb-3">
-                <label class="form-label fw-semibold">
-                    Max Children
-                </label>
-                <input type="number"
-                       th:field="*{children}"
-                       class="form-control"
-                       required>
-            </div>
+    <!-- Children -->
+    <div class="mb-3">
+        <label class="form-label fw-semibold">
+            Max Children
+        </label>
+        <input type="number"
+               th:field="*{children}"
+               class="form-control"
+               required>
+    </div>
 
-            <!-- Price -->
-            <div class="mb-3">
-                <label class="form-label fw-semibold">
-                    Price Per Night (₹)
-                </label>
-                <input type="number"
-                       th:field="*{pricePerNight}"
-                       class="form-control"
-                       required>
-            </div>
+    <!-- Price -->
+    <div class="mb-3">
+        <label class="form-label fw-semibold">
+            Price Per Night (₹)
+        </label>
+        <input type="number"
+               th:field="*{pricePerNight}"
+               class="form-control"
+               required>
+    </div>
 
-            <!-- Update Button -->
-            <button class="btn btn-warning w-100 fw-bold rounded-pill mt-3">
-                Update Room
-            </button>
+    <!-- Update Button -->
+    <button class="btn btn-warning w-100 fw-bold rounded-pill mt-3">
+        Update Room
+    </button>
 
-        </form>
+</form>
+
 
     </div>
 

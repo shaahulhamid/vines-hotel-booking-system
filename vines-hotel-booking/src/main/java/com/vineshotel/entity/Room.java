@@ -45,4 +45,8 @@ public class Room {
 
     public int getChildren() { return children; }
     public void setChildren(int children) { this.children = children; }
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

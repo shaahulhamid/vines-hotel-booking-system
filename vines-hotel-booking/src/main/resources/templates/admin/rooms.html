@@ -1,10 +1,179 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Rooms | The Vines Hotel</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 </head>
-<body>
+
+<body class="bg-light">
+
+<!-- ✅ Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg py-3">
+    <div class="container">
+
+        <!-- Brand -->
+        <a class="navbar-brand fw-bold" th:href="@{/}">
+            🌿 The Vines Hotel
+        </a>
+
+        <!-- Right Side Links -->
+        <div class="d-flex align-items-center">
+
+            <!-- Rooms always visible -->
+            <a class="nav-link text-white fw-semibold"
+               th:href="@{/rooms}">
+                Rooms
+            </a>
+
+            <!-- ✅ Book Now ONLY for Users -->
+            <a class="nav-link text-white ms-3 fw-semibold"
+               sec:authorize="!hasRole('ADMIN')"
+               th:href="@{/book}">
+                Book Now
+            </a>
+
+            <!-- ✅ Admin Panel ONLY for Admin -->
+            <a class="nav-link text-white ms-3 fw-semibold"
+               sec:authorize="hasRole('ADMIN')"
+               th:href="@{/admin/rooms}">
+                Manage Rooms
+            </a>
+
+            <!-- Logout Button -->
+            <form sec:authorize="isAuthenticated()"
+                  th:action="@{/logout}" method="post"
+                  class="ms-4 mb-0">
+                <button type="submit" class="btn btn-outline-light">
+                    Logout
+                </button>
+            </form>
+
+            <!-- Login Button -->
+            <a sec:authorize="!isAuthenticated()"
+               class="btn btn-outline-light ms-3"
+               th:href="@{/login}">
+                Login
+            </a>
+
+        </div>
+    </div>
+</nav>
+
+
+<!-- ✅ Page Heading -->
+<div class="container text-center mt-5">
+    <h1 class="fw-bold">🏨 Our Luxury Rooms</h1>
+    <p class="text-muted">
+        Choose from premium rooms designed for comfort and relaxation.
+    </p>
+</div>
+
+
+<!-- ✅ Rooms Cards Section -->
+<div class="container mt-4">
+
+    <div class="row g-4">
+
+        <!-- ✅ Dynamic Room Cards -->
+        <div class="col-md-4" th:each="room : ${rooms}">
+            <div class="card shadow-sm rounded-4 h-100">
+                <div class="card-body">
+
+                    <!-- Room Title -->
+                    <h4 class="card-title fw-bold"
+                        th:text="${room.title}">
+                        Premium Room
+                    </h4>
+
+                    <!-- Description -->
+                    <p class="text-muted"
+                       th:text="${room.description}">
+                        Room Description
+                    </p>
+
+                    <!-- Capacity -->
+                    <p>
+                        👤 Adults: <span th:text="${room.adults}"></span><br>
+                        👶 Children: <span th:text="${room.children}"></span>
+                    </p>
+
+                    <!-- Price -->
+                    <h5 class="text-success fw-bold">
+                        ₹<span th:text="${room.pricePerNight}"></span> / night
+                    </h5>
+
+                    <!-- ✅ Book Now Button ONLY for Users -->
+                    <a sec:authorize="!hasRole('ADMIN')"
+                       class="btn btn-dark w-100 mt-3"
+                       th:href="@{/book}">
+                        Book Now
+                    </a>
+
+                    <!-- ✅ Admin Edit/Delete Buttons ONLY for Admin -->
+                    <div sec:authorize="hasRole('ADMIN')" class="mt-3">
+
+                        <a class="btn btn-sm btn-warning w-100"
+                           th:href="@{/admin/rooms/edit/{id}(id=${room.id})}">
+                            ✏ Edit Room
+                        </a>
+
+                        <a class="btn btn-sm btn-danger w-100 mt-2"
+                           th:href="@{/admin/rooms/delete/{id}(id=${room.id})}">
+                            🗑 Delete Room
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ✅ If No Rooms Available -->
+    <div th:if="${#lists.isEmpty(rooms)}"
+         class="text-center mt-5 text-muted">
+
+        <h4>No rooms available yet.</h4>
+
+        <!-- User Message -->
+        <p sec:authorize="!hasRole('ADMIN')">
+            Please check back later for available rooms.
+        </p>
+
+        <!-- Admin Message -->
+        <div sec:authorize="hasRole('ADMIN')">
+            <p>You can add rooms from the Admin Dashboard.</p>
+
+            <a class="btn btn-dark mt-3"
+               th:href="@{/admin/rooms/add}">
+                ➕ Add Rooms Now
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Back Button -->
+<div class="container text-center mt-5">
+    <a class="btn btn-outline-dark" th:href="@{/}">
+        ⬅ Back to Home
+    </a>
+</div>
+
+
+<!-- Footer -->
+<footer class="text-center mt-5 p-4 bg-dark text-white">
+    © 2026 The Vines Hotel | Luxury Stay Experience
+</footer>
 
 </body>
 </html>

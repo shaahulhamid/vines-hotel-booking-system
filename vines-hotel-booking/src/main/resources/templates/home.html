@@ -102,64 +102,65 @@
             </span>
         </a>
 
-        <!-- Right Side Links -->
-        <div class="d-flex align-items-center">
+ <!-- Right Side Links -->
+<div class="d-flex align-items-center">
 
-           <!-- Customer Links -->
-<div sec:authorize="!hasRole('ADMIN')">
+    <!-- Customer Links -->
+    <div sec:authorize="!hasRole('ADMIN')" class="d-flex align-items-center">
 
-    <a class="nav-link text-white fw-semibold"
-       th:href="@{/rooms}">
-        Rooms
-    </a>
+        <a class="nav-link text-white fw-semibold px-3"
+           th:href="@{/rooms}">
+            Rooms
+        </a>
 
-    <a class="nav-link text-white ms-3 fw-semibold"
-       th:href="@{/book}">
-        Book Now
-    </a>
+        <a class="nav-link text-white fw-semibold px-3"
+           th:href="@{/book}">
+            Book Now
+        </a>
 
-</div>
+    </div>
 
+    <!-- Admin Links -->
+    <div sec:authorize="hasRole('ADMIN')" class="d-flex align-items-center">
 
-<!-- Admin Links -->
-<div sec:authorize="hasRole('ADMIN')" class="d-flex">
+        <a class="nav-link text-white fw-semibold px-3"
+           th:href="@{/admin/dashboard}">
+            Dashboard
+        </a>
 
-    <a class="nav-link text-white fw-semibold"
-       th:href="@{/admin/dashboard}">
-        Dashboard
-    </a>
+        <a class="nav-link text-white fw-semibold px-3"
+           th:href="@{/admin/rooms}">
+            Manage Rooms
+        </a>
 
-    <a class="nav-link text-white ms-3 fw-semibold"
-       th:href="@{/admin/rooms}">
-        Manage Rooms
-    </a>
+        <a class="nav-link text-white fw-semibold px-3"
+           th:href="@{/admin/bookings}">
+            Booking Requests
+        </a>
 
-    <a class="nav-link text-white ms-3 fw-semibold"
-       th:href="@{/admin/bookings}">
-        Booking Requests
-    </a>
+    </div>
 
-</div>
+    
+
 
 
 <!-- Logout -->
-<form sec:authorize="isAuthenticated()"
-      th:action="@{/logout}" method="post"
-      class="ms-4 mb-0">
-    <button type="submit" class="btn btn-outline-light">
-        Logout
-    </button>
-</form>
+    <form sec:authorize="isAuthenticated()"
+          th:action="@{/logout}" method="post"
+          class="ms-3 mb-0">
+        <button type="submit" class="btn btn-outline-light">
+            Logout
+        </button>
+    </form>
 
-<!-- Login -->
-<a sec:authorize="!isAuthenticated()"
-   class="btn btn-outline-light ms-3"
-   th:href="@{/login}">
-    Login
-</a>
+    <!-- Login -->
+    <a sec:authorize="!isAuthenticated()"
+       class="btn btn-outline-light ms-3"
+       th:href="@{/login}">
+        Login
+    </a>
 
-
-        </div>
+</div>
 
     </div>
 </nav>

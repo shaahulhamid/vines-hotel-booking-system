@@ -19,23 +19,23 @@ public class AdminRoomController {
     @Autowired
     private RoomService roomService;
 
-    // ✅ Show All Rooms
+    // ✅ Show All Rooms (Admin Dashboard)
     @GetMapping
     public String manageRooms(Model model) {
         model.addAttribute("rooms", roomService.getAllRooms());
         return "admin/manage-rooms";
     }
 
-    // ✅ Add Room Page
+    // ✅ Show Add Room Form
     @GetMapping("/add")
     public String addRoomForm(Model model) {
         model.addAttribute("room", new Room());
         return "admin/add-room";
     }
 
-    // ✅ Save Room
+    // ✅ Save New Room
     @PostMapping("/save")
-    public String saveRoom(@ModelAttribute Room room) {
+    public String saveRoom(@ModelAttribute("room") Room room) {
         roomService.saveRoom(room);
         return "redirect:/admin/rooms";
     }
@@ -47,21 +47,24 @@ public class AdminRoomController {
         return "redirect:/admin/rooms";
     }
 
-    // ✅ Edit Room Page
+    // ✅ Show Edit Room Form
     @GetMapping("/edit/{id}")
-    public String editRoom(@PathVariable Long id, Model model) {
-
+    public String editRoomForm(@PathVariable Long id, Model model) {
         Room room = roomService.getRoomById(id);
         model.addAttribute("room", room);
-
         return "admin/edit-room";
     }
 
-    // ✅ Update Room
-    @PostMapping("/update")
-    public String updateRoom(@ModelAttribute Room room) {
+    // ✅ Update Room (MOST IMPORTANT)
+    @PostMapping("/update/{id}")
+    public String updateRoom(@PathVariable Long id,
+                             @ModelAttribute("room") Room room) {
 
-        roomService.saveRoom(room); // same save works for update
+        // Ensure correct ID is set
+        room.setId(id);
+
+        roomService.saveRoom(room);
+
         return "redirect:/admin/rooms";
     }
 }
