@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin | Booking Requests</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+
+        .page-header {
+            background: #212529;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .table-container {
+            margin-top: 40px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .pending {
+            background: orange;
+            color: white;
+        }
+
+        .approved {
+            background: green;
+            color: white;
+        }
+
+        .rejected {
+            background: red;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="page-header">
+    <h2>📌 Booking Requests</h2>
+    <p>Manage all customer bookings here</p>
+</div>
+
+<div class="container">
+
+    <!-- Navigation Buttons -->
+    <div class="mt-4 d-flex justify-content-between">
+        <a th:href="@{/admin/dashboard}" class="btn btn-dark">
+            ← Dashboard
+        </a>
+
+        <a th:href="@{/admin/rooms}" class="btn btn-primary">
+            Manage Rooms
+        </a>
+    </div>
+
+    <!-- Booking Table -->
+    <div class="table-container">
+
+        <h4 class="fw-bold mb-3">All Booking Requests</h4>
+
+        <table class="table table-bordered table-hover text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Room Type</th>
+                    <th>Adults</th>
+                    <th>Children</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Status</th>
+                    <th>Requests</th>
+                    <th>Actions</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+<!-- Booking Rows -->
+<tr th:each="booking : ${bookings}">
+
+    <td th:text="${booking.id}"></td>
+    <td th:text="${booking.fullName}"></td>
+    <td th:text="${booking.email}"></td>
+    <td th:text="${booking.phone}"></td>
+    <td th:text="${booking.roomType}"></td>
+    <td th:text="${booking.adults}"></td>
+    <td th:text="${booking.children}"></td>
+    <td th:text="${booking.checkInDate}"></td>
+    <td th:text="${booking.checkOutDate}"></td>
+
+    <!-- Status Badge -->
+    <td>
+        <span th:text="${booking.status}"
+              th:classappend="
+                ${booking.status} == 'PENDING' ? 'status-badge pending' :
+                (${booking.status} == 'APPROVED' ? 'status-badge approved' :
+                'status-badge rejected')">
+        </span>
+    </td>
+
+    <td th:text="${booking.specialRequests}"></td>
+
+    <!-- ✅ Actions Column -->
+    <td>
+
+        <!-- Buttons only if PENDING -->
+        <div th:if="${booking.status == 'PENDING'}">
+
+            <a th:href="@{/admin/bookings/approve/{id}(id=${booking.id})}"
+               class="btn btn-success btn-sm mb-1">
+                Approve
+            </a>
+
+            <a th:href="@{/admin/bookings/reject/{id}(id=${booking.id})}"
+               class="btn btn-danger btn-sm">
+                Reject
+            </a>
+
+        </div>
+
+        <!-- Approved -->
+        <span th:if="${booking.status == 'APPROVED'}"
+              class="text-success fw-bold">
+            Approved ✔
+        </span>
+
+        <!-- Rejected -->
+        <span th:if="${booking.status == 'REJECTED'}"
+              class="text-danger fw-bold">
+            Rejected ✖
+        </span>
+
+    </td>
+
+</tr>
+
+<!-- No Bookings Row -->
+<tr th:if="${#lists.isEmpty(bookings)}">
+    <td colspan="12" class="text-muted text-center">
+        No booking requests found.
+    </td>
+</tr>
+
+</tbody>
+
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>
