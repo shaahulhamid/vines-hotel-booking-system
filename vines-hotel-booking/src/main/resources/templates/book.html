@@ -30,42 +30,44 @@
                     </h2>
 
                     <!-- FORM SUBMISSION -->
-                    <form th:action="@{/submitBooking}" method="post">
+                    <form th:action="@{/submitBooking}"
+      th:object="${booking}"
+      method="post">
 
                         <!-- Full Name -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Full Name</label>
-                            <input type="text" class="form-control"
-                                   name="fullName"
-                                   placeholder="Enter your name" required>
+                           <input type="text" class="form-control"
+       th:field="*{fullName}"
+       placeholder="Enter your name" required>
                         </div>
 
                         <!-- Email -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Email Address</label>
-                            <input type="email" class="form-control"
-                                   name="email"
-                                   placeholder="example@gmail.com" required>
+                           <input type="email" class="form-control"
+       th:field="*{email}"
+       placeholder="example@gmail.com" required>
                         </div>
 
                         <!-- Phone -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Phone Number</label>
-                            <input type="text" class="form-control"
-                                   name="phone"
-                                   placeholder="Enter your phone number" required>
+                           <input type="text" class="form-control"
+       th:field="*{phone}"
+       placeholder="Enter your phone number" required>
                         </div>
 
                         <!-- Room Type -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Select Room Type</label>
-                           <select class="form-select" name="roomType" required>
-    <option value="">-- Choose Room --</option>
+<select class="form-select" name="roomType" required>
+	    <option value="">-- Choose Room --</option>
 
     <!-- Dynamic Room Options from Database -->
     <option th:each="room : ${rooms}"
-            th:value="${room.roomName}"
-            th:text="${room.roomName}">
+            th:value="${room.title}"
+            th:text="${room.title}">
     </option>
 </select>
                         </div>
@@ -75,8 +77,7 @@
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">Adults</label>
-                                <select class="form-select" name="adults" required>
-                                    <option value="">-- Adults --</option>
+<select class="form-select" th:field="*{adults}" required>                                    <option value="">-- Adults --</option>
                                     <option value="1">1 Adult</option>
                                     <option value="2">2 Adults</option>
                                     <option value="3">3 Adults</option>
@@ -88,8 +89,7 @@
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">Children</label>
-                                <select class="form-select" name="children">
-                                    <option value="0">0</option>
+<select class="form-select" th:field="*{children}">                                    <option value="0">0</option>
                                     <option value="1">1 Child</option>
                                     <option value="2">2 Children</option>
                                     <option value="3">3 Children</option>
@@ -103,14 +103,14 @@
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Check-in Date</label>
                             <input type="date" class="form-control"
-                                   name="checkInDate" required>
+       th:field="*{checkInDate}" required>
                         </div>
 
                         <!-- Check-out -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Check-out Date</label>
                             <input type="date" class="form-control"
-                                   name="checkOutDate" required>
+       th:field="*{checkOutDate}" required>
                         </div>
 
                         <!-- Special Requests -->
@@ -118,10 +118,10 @@
                             <label class="form-label fw-semibold">
                                 Special Requests (Optional)
                             </label>
-                            <textarea class="form-control" rows="3"
-                                      name="specialRequests"
-                                      placeholder="Extra bed, late check-in, food preferences..."></textarea>
-                        </div>
+                           <textarea class="form-control"
+          rows="3"
+          th:field="*{specialRequests}"
+          placeholder="Extra bed, late check-in, food preferences..."></textarea>                       </div>
 
                         <!-- Submit -->
                         <div class="d-grid mt-4">

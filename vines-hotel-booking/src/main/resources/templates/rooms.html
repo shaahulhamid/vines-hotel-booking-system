@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
@@ -30,13 +29,6 @@
             <a class="nav-link text-white fw-semibold"
                th:href="@{/rooms}">
                 Rooms
-            </a>
-
-            <!-- Book Now only for USERS -->
-            <a sec:authorize="!hasRole('ADMIN')"
-               class="nav-link text-white ms-3 fw-semibold"
-               th:href="@{/book}">
-                Book Now
             </a>
 
             <!-- Admin Panel only for ADMIN -->
@@ -79,8 +71,8 @@
 
                     <!-- Capacity -->
                     <p>
-                        👤 Adults: <span th:text="${room.adults}"></span><br>
-                        👶 Children: <span th:text="${room.children}"></span>
+                        👤 Adults: <span th:text="${room.adults}"> </span><br>
+                        👶 Children: <span th:text="${room.children}"> </span>
                     </p>
 
                     <!-- Price -->
